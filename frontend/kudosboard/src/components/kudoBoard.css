@@ -1,0 +1,16 @@
+.kudo-board {
+    border: 1px solid #ccc;
+    padding: 0px;
+    margin: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    max-width: 280px;
+  }
+
+  .board-details {
+    width: 100%; /* Adjust this value to fit your needs */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
