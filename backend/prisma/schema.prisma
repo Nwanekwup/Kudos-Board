@@ -23,11 +23,12 @@ model Board {
 
 model Card {
   id       Int     @id @default(autoincrement())
+  title         String
   description   String
   imgurl       String  
   author       String
   upvotes     Int
-  boardId     Int
   board       Board @relation(fields: [boardId], references: [id])
+  boardId     Int
 }
 

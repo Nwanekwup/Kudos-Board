@@ -1,0 +1,8 @@
+.kudo-cards {
+    display: flex;
+    flex-direction: row;
+    margin: 20px;
+    flex-wrap: wrap;
+    justify-content: center; 
+    border: 2px;
+}
