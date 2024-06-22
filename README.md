@@ -52,7 +52,7 @@ Deployed Application (optional): [Kudos Board Deployed Site](ADD_LINK_HERE)
 
 `TODO://` Add the embedded URL code to your animated app walkthrough below, `(https://www.loom.com/share/dfc80791cfd1433491b4e01e9918b801?sid=5c7b37ab-c303-47ac-9568-0af7bfa351b8)`. Make sure the video or gif actually renders and animates when viewing this README. 
 
-`git@github.com:Nwanekwup/Kudos-Board.git`
+`https://github.com/Nwanekwup/Kudos-Board.git`
 
 ### Reflection
 
