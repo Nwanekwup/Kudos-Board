@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './kudoCard.css';
 
-const KudoCard = ({ boardId }) => {
-    const [cards, setCards] = useState([]);
+const KudoCard = ({ boardId, cards, setCards }) => {
+    
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 

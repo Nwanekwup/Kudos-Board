@@ -9,6 +9,7 @@ import KudoCard from '../components/KudoCard';
 
 const HomePage = () => {
     const [boards, setBoards] = useState([]);
+    
     const addBoard = (newBoard) => {
         const updatedBoards = [...boards, newBoard];
         setBoards(updatedBoards);
@@ -17,9 +18,8 @@ const HomePage = () => {
     return (
         <div className='app-body'>
         <Header />
-        <Banner addBoard={addBoard} boards={boards} setBoards={setBoards} />
+        <Banner addBoard={addBoard} boards={boards} setBoards={setBoards}  />
         <KudoBoard boards={boards} setBoards={setBoards} />
-        <KudoCard />
         <Footer />
         
         </div>

@@ -40,7 +40,7 @@ const KudoBoard = ({ boards, setBoards }) => {
         {boards.map((board) => (
             <div key={board.id} className="kudo-board">
                 <div className="board-details">
-                    <img className='board-image' src='https://picsum.photos/200/300'/>
+                    <img className='board-image' src={board.imgurl || 'https://picsum.photos/200/300'} />
                     <div className="board-title">
                         <h3>{board.title}</h3>
                     </div>

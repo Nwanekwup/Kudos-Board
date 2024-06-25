@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 import GiphyList from './GiphyList';
 import { useParams } from 'react-router-dom';
 
-const Banner = ({ boards, setBoards, addBoard }) => {
+const Banner = ({ boards, setBoards, addBoard, cards, setCards, addCard}) => {
     const params = useParams();
     const boardId = params.boardId
     console.log(boardId)
@@ -56,13 +56,14 @@ const Banner = ({ boards, setBoards, addBoard }) => {
     };
     const handleCreateBoard = async () => {
       const title = document.querySelector('#title').value;
+      const imgurl = selectedGif;
       const category = document.querySelector('#category').value;
       const author = document.querySelector('#author').value;
       try {
         const response = await fetch('http://www.localhost:3007/Boards', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ title, category, author }),
+          body: JSON.stringify({ title, imgurl, category, author }),
         });
         if (response.ok) {
           const newBoard = await response.json();
@@ -131,19 +132,23 @@ const Banner = ({ boards, setBoards, addBoard }) => {
     const handleCreateCard = async (boardId) => {
       console.log(boardId)
       const title = document.querySelector('#title').value;
-      const image = document.querySelector('#image').value;
-      const category = document.querySelector('#category').value;
+      // const image = document.querySelector('#image').value;
+      const imgurl = selectedGif;
+      const description = document.querySelector('#description').value;
       const author = document.querySelector('#author').value;
       try {
         const response = await fetch(`http://localhost:3007/Boards/${boardId}/cards`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ title, image, category, author }),
+          body: JSON.stringify({ title, imgurl, description, author }),
         });
         if (response.ok) {
           const newCard = await response.json();
           // Add the new card to the state
-          setNewCard([...cards, newCard]);
+          // setNewCard([...cards, newCard]);
+
+          setCards([]);
+          addCard(newCard);
           // Close the modal
           setShowModal(false);
         } else {
@@ -175,19 +180,29 @@ const Banner = ({ boards, setBoards, addBoard }) => {
                 <h2 style={{  display: location.pathname.includes("cards") ? 'grid' : 'none' }}>Create a New Card</h2>
                 <label>Title:</label>
                 <input type="text" id="title" required/>
-                <label style={{  display: location.pathname.includes("cards") ? 'grid' : 'none' }}>Search Image:</label>
-                <input type="text" id="image" required style={{  display: location.pathname.includes("cards") ? 'flex' : 'none' }} onChange={handleGiphyInput}/>
-                <button id="image-search" type="button" style={{  display: location.pathname.includes("cards") ? 'flex' : 'none' }} onClick={handleGiphySubmit}>search</button>
+                <label >Search Image:</label>
+                <input type="text" id="image" required onChange={handleGiphyInput}/>
+                <button id="image-search" type="button" onClick={handleGiphySubmit}>search</button>
                 {result && <GiphyList gifs={result} onSelect={handleImageSelect}/>}
                 <input type='text' id='selected-gif' value={selectedGif} readOnly onChange={handleInputChange} />               
-                <label>Category:</label>
-                <select id="category" required>
-                  <option value>Select a category</option>
-                  <option value="Recent">Recent</option>
-                  <option value="Celebration">Celebration</option>
-                  <option value="Thank You">Thank You</option>
-                  <option value="Inspiration">Inspiration</option>
-                </select>
+                
+                {location.pathname.includes("cards") ? (
+                  <div>
+                    <label>Description:</label>
+                    <input type="text" id="description" required/>
+                  </div>
+                ) : (
+                  <div>
+                    <label>Category:</label>
+                    <select id="category" required>
+                      <option value>Select a category</option>
+                      <option value="Recent">Recent</option>
+                      <option value="Celebration">Celebration</option>
+                      <option value="Thank You">Thank You</option>
+                      <option value="Inspiration">Inspiration</option>
+                  </select>
+                </div>
+                )}
                 <label>Author:</label>
                 <input type="text" id="author"/>
                 {location.pathname.includes("cards") ? (
