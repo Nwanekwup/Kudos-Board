@@ -1,0 +1,26 @@
+.gif-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.gif-item {
+    flex-basis: calc(100% / 6);
+    margin: 1%;
+}
+
+img {
+    max-width: 100%;
+}
+
+@media screen and (amx-width: 992px) {
+    .gif-item{
+        flex-basis: 31%
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .gif-item {
+        flex-basis: 48%;
+    }
+}

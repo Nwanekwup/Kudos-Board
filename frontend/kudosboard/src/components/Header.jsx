@@ -3,11 +3,11 @@ import '../App.css';
 
 function Header() {
     return(
-        <div className="kudo-header">
-            <h1>KUDOBOARD</h1>
-        </div>
 
+        <div className="kudo-header">
+            <h1>KUDOSBOARD</h1>
+        </div>
     )
 }
 
-export default Header 
+export default Header

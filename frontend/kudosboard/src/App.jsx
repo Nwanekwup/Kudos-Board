@@ -20,4 +20,3 @@ const App = () => {
 }
 export default App
 
-// /boards/:board_id/cards
