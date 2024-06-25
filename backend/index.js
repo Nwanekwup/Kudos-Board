@@ -45,8 +45,8 @@ app.get('/Boards/:id', validateBody, async (req, res) => {
 // route to create a new board
 app.post('/Boards', async (req, res) => {
     try {
-      const { title, category, author } = req.body;
-      const newBoard = await prisma.board.create({ data: { title, category, author } });
+      const { title, imgurl, category, author } = req.body;
+      const newBoard = await prisma.board.create({ data: { title, imgurl, category, author } });
       res.status(200).json(newBoard);
     } catch (error) {
       console.error(error);
@@ -58,7 +58,7 @@ app.post('/Boards', async (req, res) => {
 app.put('/Boards/:id', validateBody, async (req, res) => {
     try{
         const { id }= req.params
-        const { title, category, author } = req.body
+        const {  title, imgurl, category, author } = req.body
         const board = await prisma.board.findUnique({where: { id: parseInt(id)}})
         // check if the board exists
         if (!board) {
@@ -69,9 +69,7 @@ app.put('/Boards/:id', validateBody, async (req, res) => {
         const updatedBoard = await prisma.board.update({
             where: { id: parseInt(id) },
             data: {
-                title,
-                category,
-                author
+                title, imgurl, category, author
             }
         });
         res.status(200).json(updatedBoard);

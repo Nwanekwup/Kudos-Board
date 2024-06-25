@@ -2,6 +2,7 @@
 CREATE TABLE "Board" (
     "id" SERIAL NOT NULL,
     "title" TEXT NOT NULL,
+    "imgurl" TEXT NOT NULL,
     "category" TEXT NOT NULL,
     "author" TEXT NOT NULL,
 
