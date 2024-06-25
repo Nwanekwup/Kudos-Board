@@ -23,10 +23,10 @@ Deployed Application (optional): [Kudos Board Deployed Site](ADD_LINK_HERE)
     - [x] Boards should have a title, category, and author (optional).
   - [x] User can delete boards.
   
-- [xc] **Board Page**
+- [x] **Board Page**
   - [x] Displays a list of all cards for a board.
     -  [x] Each card features a text message.
-    -  [ ] Each card features a gif found using the [GIPHY API](https://developers.giphy.com/docs/api/).
+    -  [x] Each card features a gif found using the [GIPHY API](https://developers.giphy.com/docs/api/).
     -  [x] Users can optionally sign the card as the author.  
 -   [x] Cards can be upvoted.
 -   [x] Cards can be deleted.
@@ -50,7 +50,9 @@ Deployed Application (optional): [Kudos Board Deployed Site](ADD_LINK_HERE)
 
 ### Walkthrough Video
 
-`TODO://` Add the embedded URL code to your animated app walkthrough below, `https://www.loom.com/share/74c97d4697d542f1829d04e24af051fe?sid=73cfb558-84b6-49fc-a2ec-bb2c6f3f4989`. Make sure the video or gif actually renders and animates when viewing this README. 
+`TODO://` Add the embedded URL code to your animated app walkthrough below, 
+`https://www.loom.com/share/45a306b0e916473cb9693194705d61e8?sid=17ddd03c-a16c-4044-8de3-965ef1d39c48`. 
+Make sure the video or gif actually renders and animates when viewing this README. 
 
 `https://github.com/Nwanekwup/Kudos-Board.git`
 
