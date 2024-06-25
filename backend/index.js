@@ -10,20 +10,25 @@ const { validateBody } = require('./middleware');
 
 //Defining routes for boards
 app.get('/Boards', validateBody, async (req, res) => {
+    const { category, sort} = req.query;
+    let queryOptions = {
+        orderBy: {}
+    };
+    if (category && category !== 'All') {
+        queryOptions.where = { category: category };
+    }
+    if (sort === 'Recent') {
+        queryOptions.orderBy.createdAt = 'desc';
+    }
     try{
-        const { category, sort } = req.query;
-        let queryOptions = {};
-        if (category && category !== 'All') {
-            queryOptions.where = { category: category };
-        }
-        const boards = await prisma.board.findMany()
+        const boards = await prisma.board.findMany(queryOptions)
         res.status(200).json(boards);
     }   catch (error) {
         console.error(error)
         res.status(500).json({ message: 'Error retrieving boards'})
     }
     
-});
+}); 
 // route to get a specific board 
 
 app.get('/Boards/:id', validateBody, async (req, res) => {
@@ -51,7 +56,6 @@ app.post('/Boards', async (req, res) => {
 
 // route to update a board
 app.put('/Boards/:id', validateBody, async (req, res) => {
-    
     try{
         const { id }= req.params
         const { title, category, author } = req.body
@@ -110,10 +114,11 @@ app.get('/Boards/:boardId/cards', async (req, res) => {
     }
 });
 
+
 // CREATE NEW CARD
 app.post('/Boards/:boardId/cards', async (req, res) => {
     const boardId = parseInt(req.params.boardId);
-    const { title, description, imgurl, author, upvotes } = req.body
+    const { title, description, imgurl, author, upvotes = 0 } = req.body
     try {
         const card = await prisma.card.create({
             data: {
@@ -121,7 +126,7 @@ app.post('/Boards/:boardId/cards', async (req, res) => {
                 description,
                 imgurl,
                 author,
-                upvotes,
+                upvotes: 0,
                 board: {
                     connect: { id: boardId }
                 }
@@ -135,39 +140,31 @@ app.post('/Boards/:boardId/cards', async (req, res) => {
 });
 
 
-// PUT /cards/:id: Updates a single card by ID
-app.put('/boards/:boards_id/cards', validateBody, async (req, res) => {
+// PATCH /cards/:id: Updates a single card by ID
+app.patch('/Boards/:boardId/cards/:cardId/upvotes', validateBody, async (req, res) => {
+    const { boardId, cardId } = req.params;
+    console.log(boardId)
     try {
-      const { id } = req.params;
-      const { title, description, imgurl, author, upvotes } = req.body;
-      const card = await prisma.Card.update({
-        where: { id: parseInt(id) },
+      const card = await prisma.card.update({
+        where: { id: parseInt(cardId) },
         data: {
-            title,
-            description,
-            imgurl,
-            author,
-            upvotes,
-            boardId,
-            board: {
-                connect: {
-                    id: parseInt(boardId)
-                }
+            upvotes: {
+                increment: 1
             }
         },
       });
       res.status(200).json(card);
     } catch (error) {
-      console.error(error);
-      res.status(404).json({ message: 'Card not found' });
+      console.error('Error upvoting card', error);
+      res.status(404).json({ message: 'Error upvoting card' });
     }
 });
 
 // DELETE /cards/:id: Deletes a single card by ID
-app.delete('/Cards/:id', validateBody, async (req, res) => {
+app.delete('/boards/:boardId/cards/:cardId', validateBody, async (req, res) => {
     try {
-      const { id } = req.params;
-      await prisma.card.delete({ where: { id: parseInt(id) } });
+      const { cardId } = req.params;
+      await prisma.card.delete({ where: { id: parseInt(cardId) } });
       res.status(200).json({ message: 'Card deleted successfully' });
     } catch (error) {
       console.error(error);
